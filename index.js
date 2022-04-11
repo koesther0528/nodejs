@@ -1,6 +1,7 @@
 const http = require('http')
 const fs = require('fs')
 const url = require('url')
+const qs = require('querystring');
 
 function templateList(filelist) {
     let list = '<ul>';
@@ -66,7 +67,27 @@ const app = http.createServer(function (request, response) {
             response.writeHead(200);
            response.end(template);
         });
-        }
+    }
+    else if(pathname === '/create_process'){
+        // 넘겨받은 데이터를 문자열 형태로 body에 축적
+        const body = '';
+        request.on('data', function (data){
+
+        });
+    }
+    else if(pathname === '/create_process'){
+        let body = '';
+        request.on('data', function (data){
+           body += body + data;
+        });
+        request.on('end', function (){
+           const post = qs.parse(body);
+           const title = post.title;
+           const description = post.description;
+        });
+        response.writeHead(200);
+        response.end('success');
+    }
     else {
         response.writeHead(404)
         response.end('Not found')
